@@ -1,0 +1,42 @@
+@import "../../variables.scss";
+
+.header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding-left: 20px;
+  padding-right: 30px;
+  width: 100vw;
+  height: 60px;
+  background-color: $bg2;
+  border-bottom: 1px solid $primary-color;
+
+  .logo-c {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    height: 100%;
+    color: $primary-color;
+    text-decoration: none;
+    font-size: 25px;
+    font-weight: 500;
+    transition: color 0.2s;
+
+    &:hover {
+      color: $primary-color-hover;
+    }
+  }
+
+  .nav-link {
+    color: $primary-color;
+    text-decoration: none;
+    transition: all 0.2s;
+
+    &:hover {
+      color: $primary-color-hover;
+    }
+  }
+}

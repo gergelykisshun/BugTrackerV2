@@ -1,0 +1,19 @@
+@import "../../variables.scss";
+
+.person-container {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  width: fit-content;
+  background-color: $bg3-form;
+  border-radius: $border-radius;
+}
+.person-container h2 {
+  color: $text-active;
+}
+
+.person-container .add-person {
+  color: $primary-color;
+}

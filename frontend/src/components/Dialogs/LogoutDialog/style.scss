@@ -1,0 +1,11 @@
+@import "../../../variables.scss";
+
+.logout-dialog-container {
+  background-color: $bg3-form;
+  .logout-btn-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    border-radius: $border-radius;
+  }
+}

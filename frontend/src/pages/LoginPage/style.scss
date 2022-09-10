@@ -1,0 +1,68 @@
+@import "../../variables.scss";
+
+.login-section,
+.signUp-section {
+  display: flex;
+  justify-content: center;
+  padding-top: 50px;
+}
+
+.login-form {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  width: 530px;
+  min-height: 530px;
+  padding: 30px;
+  background-color: $bg-card;
+  border-radius: 12px;
+
+  h2 {
+    position: absolute;
+    top: 45px;
+    left: 45px;
+    color: $text-active;
+    align-self: flex-start;
+    font-size: 27px;
+  }
+  input {
+    width: 100%;
+    height: 48px;
+    padding-inline: 15px;
+    border-bottom: 1px solid $text-inactive;
+    color: $text-active;
+    font-size: 16px;
+    &::placeholder {
+      color: $text-inactive;
+    }
+  }
+  p,
+  strong {
+    color: $text-active;
+    font-weight: 400;
+  }
+  strong {
+    text-decoration: underline;
+    cursor: pointer;
+  }
+}
+
+.login-title {
+  position: absolute;
+  top: 45px;
+  right: 45px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-bottom: 15px;
+  color: $primary-color;
+}
+
+.tool-tip-style {
+  position: absolute;
+  top: 6px;
+  right: -30px;
+}

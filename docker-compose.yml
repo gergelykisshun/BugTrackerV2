@@ -1,0 +1,54 @@
+version: "3.8"
+
+services:
+  frontend:
+    image: node:16.12.0
+    working_dir: /app
+    volumes:
+      - ./frontend:/app
+    command: 'bash -c "npm install && npm start"'
+    ports:
+      - "3000:3000"
+    env_file:
+      - ./frontend/.env.development
+
+  user-service-db:
+    image: postgres:13
+    ports:
+      - 5434:5432
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: nimda
+      POSTGRES_DB: bug-tracker-user
+    volumes:
+      - ./user-service:/data/user-service-db
+
+  project-service-db:
+    image: mongo:5.0.3
+    ports:
+      - 27017:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: nimda
+    volumes:
+      - ./project-service:/data/project-service-db
+
+  rabbitmq:
+    image: rabbitmq:3.9-management
+    hostname: rabbitmq
+    ports:
+      - 5672:5672
+      - 15672:15672
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq/
+      - rabbitmq_log:/var/log/rabbitmq/
+    networks:
+      - rabbitmq_net
+
+volumes:
+  rabbitmq_data:
+  rabbitmq_log:
+
+networks:
+  rabbitmq_net:
+    driver: bridge

@@ -1,0 +1,18 @@
+@import "../../variables.scss";
+.welcome-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  h1 {
+    text-align: center;
+    span {
+      color: $primary-color;
+      text-transform: uppercase;
+      svg {
+        padding-bottom: 5px;
+        font-size: 40px;
+      }
+    }
+  }
+}
