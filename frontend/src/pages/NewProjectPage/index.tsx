@@ -73,9 +73,6 @@ const NewProjectPage: FC<Props> = ({ user }) => {
     );
   };
 
-  console.log("dataTosend", newProjectData.assignedTo);
-  console.log("users", users);
-
   return (
     <section>
       <div className="row mb-3">
