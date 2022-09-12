@@ -33,11 +33,9 @@ const MyProjects: FC<Props> = () => {
     content = <CircularProgress />;
   } else {
     content = (
-      <div className="row">
+      <div className="row" style={{ gap: 5 }}>
         {projects.map((project) => (
-          <div className="col-md-4">
-            <ProjectCard key={project._id} project={project} />
-          </div>
+          <ProjectCard key={project._id} project={project} />
         ))}
       </div>
     );

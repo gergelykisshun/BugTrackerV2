@@ -7,7 +7,7 @@ export interface IUser {
 }
 
 export interface IProject {
-  _id: string;
+  _id?: string;
   title: string;
   description: string;
   assignedTo: IUser[];
