@@ -1,4 +1,5 @@
 @import "./variables.scss";
+@import "./overrideBootstrap.scss";
 
 * {
   margin: 0;
@@ -92,16 +93,6 @@ p {
 .app-container {
   margin-top: 80px;
 }
-
-// .general-container {
-//   display: flex;
-//   flex-direction: column;
-//   gap: 20px;
-//   padding: 30px;
-//   background-color: $bg-card;
-//   color: $text-inactive;
-//   border-radius: $border-radius;
-// }
 
 .loading-spinner {
   width: 10px;

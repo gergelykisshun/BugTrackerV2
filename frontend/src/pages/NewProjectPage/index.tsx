@@ -47,13 +47,21 @@ const NewProjectPage: FC<Props> = ({ user }) => {
   const assignToProject = (selectedWorker: IUser) => {
     setNewProjectData((prev) => {
       if (prev.assignedTo.every((worker) => worker.id !== selectedWorker.id)) {
+        toast.info(`${selectedWorker.username} assigned to project!`);
         return { ...prev, assignedTo: [...prev.assignedTo, selectedWorker] };
       } else {
-        toast.error("Worker already added!");
-        return { ...prev };
+        toast.info(`${selectedWorker.username} removed from project!`);
+        return {
+          ...prev,
+          assignedTo: prev.assignedTo.filter(
+            (worker) => worker.id !== selectedWorker.id
+          ),
+        };
       }
     });
   };
+
+  console.log(newProjectData.assignedTo);
 
   return (
     <section>
@@ -86,7 +94,12 @@ const NewProjectPage: FC<Props> = ({ user }) => {
                 <CircularProgress />
               </div>
             ) : (
-              <Table responsive className="assign-personnel-table">
+              <Table
+                variant="dark"
+                hover
+                responsive
+                className="assign-personnel-table"
+              >
                 <thead>
                   <tr>
                     <th>Username</th>
@@ -96,7 +109,11 @@ const NewProjectPage: FC<Props> = ({ user }) => {
                 </thead>
                 <tbody>
                   {users.map((user) => (
-                    <AssignPersonnel key={user.username} user={user} />
+                    <AssignPersonnel
+                      key={user.username}
+                      user={user}
+                      assignToProject={assignToProject}
+                    />
                   ))}
                 </tbody>
               </Table>
