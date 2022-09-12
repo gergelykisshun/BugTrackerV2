@@ -11,6 +11,7 @@ export interface IProject {
   description: string;
   assignedTo: IUser[];
   tickets: string[];
+  owner: number;
 }
 
 export interface ITicket {

@@ -11,6 +11,9 @@ export class Project {
   @Prop({ required: true })
   description: string;
 
+  @Prop({ required: true })
+  owner: number;
+
   @Prop({ default: [] })
   assignedTo: string[];
 
