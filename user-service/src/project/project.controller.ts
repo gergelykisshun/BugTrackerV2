@@ -3,10 +3,13 @@ import {
   BadRequestException,
   Body,
   Controller,
+  Get,
   InternalServerErrorException,
   Post,
+  Req,
   UseGuards,
 } from '@nestjs/common';
+import { Request } from 'express';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { createProjectDto } from './dto/createProject.dto';
 
@@ -18,16 +21,28 @@ export class ProjectController {
   @Post()
   async createProject(@Body() createProjectDto: createProjectDto) {
     try {
-      console.log(createProjectDto);
-      console.log('Inside orchestrator project creator');
       const res = await this.httpService.axiosRef.post(
         'http://localhost:8001/api/v1/projects',
         createProjectDto,
       );
-      console.log('what is the result that gets to orchestrator', res);
+
       return { msg: `Project created: ${res.data.title}`, project: res.data };
     } catch (e) {
-      console.log('orchestrator went into catch');
+      throw new InternalServerErrorException();
+    }
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get()
+  async getAllProjectsOfUser(@Req() req: Request) {
+    console.log(req.user);
+    try {
+      const res = await this.httpService.axiosRef.get(
+        'http://localhost:8001/api/v1/projects',
+      );
+      console.log(res.data);
+      return res.data;
+    } catch (e) {
       throw new InternalServerErrorException();
     }
   }

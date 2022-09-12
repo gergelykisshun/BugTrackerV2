@@ -9,14 +9,13 @@ export class ProjectController {
 
   @Get()
   async allController() {
-    return this.projectService.getAll();
+    const response = await this.projectService.getAll();
+    console.log('response in micro', response);
+    return response;
   }
 
   @Post()
   async createController(@Body() projectDto: projectDto) {
-    console.log('inside project microservice');
-    console.log('body', projectDto);
-
     return this.projectService.createProject(projectDto);
   }
 
