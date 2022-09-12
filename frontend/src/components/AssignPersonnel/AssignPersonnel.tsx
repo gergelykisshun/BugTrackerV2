@@ -10,20 +10,17 @@ type Props = {
 };
 
 const AssignPersonnel: FC<Props> = ({ user, assignToProject }) => {
-  const [isSelected, setIsSelected] = useState<boolean>(false);
-
   const clickHandler = () => {
     assignToProject(user);
-    setIsSelected((prev) => !prev);
   };
 
   return (
-    <tr className={isSelected ? "table-active" : ""}>
+    <tr className={user.isSelected ? "table-active" : ""}>
       <td>{user.username}</td>
       <td>{user.role}</td>
       <td>
         <div onClick={clickHandler}>
-          {isSelected ? (
+          {user.isSelected ? (
             <IndeterminateCheckBoxOutlinedIcon className="add-person" />
           ) : (
             <AddBoxOutlinedIcon className="add-person" />

@@ -25,7 +25,7 @@ const NewProjectPage: FC<Props> = ({ user }) => {
   const fetchUsers = async () => {
     try {
       const result = await getUsers();
-      setUsers(result);
+      setUsers(result.map((user) => ({ ...user, isSelected: false })));
       setLoadingUsers(false);
     } catch (e) {
       toast.error("Couldn't fetch users!");
@@ -45,6 +45,7 @@ const NewProjectPage: FC<Props> = ({ user }) => {
   };
 
   const assignToProject = (selectedWorker: IUser) => {
+    // add selected worker to the assignedTo array
     setNewProjectData((prev) => {
       if (prev.assignedTo.every((worker) => worker.id !== selectedWorker.id)) {
         toast.info(`${selectedWorker.username} assigned to project!`);
@@ -59,9 +60,21 @@ const NewProjectPage: FC<Props> = ({ user }) => {
         };
       }
     });
+
+    // change selected users isSelected state
+    setUsers((prevUsers) =>
+      prevUsers.map((user) => {
+        if (user.id === selectedWorker.id) {
+          return { ...user, isSelected: !user.isSelected };
+        } else {
+          return user;
+        }
+      })
+    );
   };
 
-  console.log(newProjectData.assignedTo);
+  console.log("dataTosend", newProjectData.assignedTo);
+  console.log("users", users);
 
   return (
     <section>
