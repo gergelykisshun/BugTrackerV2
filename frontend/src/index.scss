@@ -49,6 +49,7 @@ body {
   margin-inline: auto;
   font-family: "Inter", sans-serif;
   background-color: #1a1a1c;
+  color: #fff;
 }
 
 h1,
@@ -92,15 +93,15 @@ p {
   margin-top: 80px;
 }
 
-.general-container {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  padding: 30px;
-  background-color: $bg-card;
-  color: $text-inactive;
-  border-radius: $border-radius;
-}
+// .general-container {
+//   display: flex;
+//   flex-direction: column;
+//   gap: 20px;
+//   padding: 30px;
+//   background-color: $bg-card;
+//   color: $text-inactive;
+//   border-radius: $border-radius;
+// }
 
 .loading-spinner {
   width: 10px;

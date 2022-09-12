@@ -1,5 +1,4 @@
 import { CircularProgress } from "@mui/material";
-import Grid from "@mui/material/Grid";
 import React, { FC, useEffect, useState } from "react";
 import { Table } from "react-bootstrap";
 import { toast } from "react-toastify";
@@ -87,7 +86,7 @@ const NewProjectPage: FC<Props> = ({ user }) => {
                 <CircularProgress />
               </div>
             ) : (
-              <Table responsive>
+              <Table responsive className="assign-personnel-table">
                 <thead>
                   <tr>
                     <th>Username</th>
