@@ -8,7 +8,7 @@ type Props = {
 
 const ProjectCard: FC<Props> = ({ project }) => {
   return (
-    <div className="col-md-4 project-card-container">
+    <div className="col-md-5 project-card-container">
       <div className="row">
         <h4>{project.title}</h4>
         <h5>

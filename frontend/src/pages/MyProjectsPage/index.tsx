@@ -33,7 +33,7 @@ const MyProjects: FC<Props> = () => {
     content = <CircularProgress />;
   } else {
     content = (
-      <div className="row" style={{ gap: 5 }}>
+      <div className="row" style={{ gap: 10 }}>
         {projects.map((project) => (
           <ProjectCard key={project._id} project={project} />
         ))}
