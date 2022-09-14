@@ -12,10 +12,15 @@ import {
 import { Request } from 'express';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { createProjectDto } from './dto/createProject.dto';
+import { ProjectService } from './project.service';
+import { IProjectOfUser } from './responseTypes/responseTypes';
 
 @Controller('projects')
 export class ProjectController {
-  constructor(private httpService: HttpService) {}
+  constructor(
+    private httpService: HttpService,
+    private projectService: ProjectService,
+  ) {}
 
   @UseGuards(JwtAuthGuard)
   @Post()
@@ -40,7 +45,17 @@ export class ProjectController {
       const res = await this.httpService.axiosRef.get(
         `http://project_service:8001/api/v1/projects?userId=${userId}`,
       );
-      return res.data;
+
+      const projectsOfUser: IProjectOfUser[] = res.data;
+
+      try {
+        const hydratedProjects = await this.projectService.hydrateProjectOwner(
+          projectsOfUser,
+        );
+        return hydratedProjects;
+      } catch (e) {
+        return projectsOfUser;
+      }
     } catch (e) {
       throw new InternalServerErrorException();
     }

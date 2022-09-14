@@ -12,7 +12,12 @@ const ProjectCard: FC<Props> = ({ project }) => {
       <div className="row">
         <h4>{project.title}</h4>
         <h5>
-          Owner of the project: <span>{project.owner}</span>
+          Owner of the project:{" "}
+          <span>
+            {typeof project.owner === "number"
+              ? project.owner
+              : project.owner.username}
+          </span>
         </h5>
       </div>
       <div className="row">
