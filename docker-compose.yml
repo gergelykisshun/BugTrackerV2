@@ -12,10 +12,35 @@ services:
     env_file:
       - ./frontend/.env.development
 
+  user-service:
+    image: node:16.12.0
+    container_name: user_service
+    working_dir: /app
+    volumes:
+      - ./user-service:/app
+    command: 'bash -c "npm install && npm run start:dev"'
+    ports:
+      - "8000:8000"
+    env_file:
+      - ./user-service/.env
+
+  project-service:
+    image: node:16.12.0
+    container_name: project_service
+    working_dir: /app
+    volumes:
+      - ./project-service:/app
+    command: 'bash -c "npm install && npm run start:dev"'
+    ports:
+      - "8001:8001"
+    env_file:
+      - ./project-service/.env
+
   user-service-db:
     image: postgres:13
+    container_name: user_service_db
     ports:
-      - 5434:5432
+      - 5432:5432
     environment:
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: nimda
@@ -25,6 +50,7 @@ services:
 
   project-service-db:
     image: mongo:5.0.3
+    container_name: project_service_db
     ports:
       - 27017:27017
     environment:

@@ -22,7 +22,7 @@ export class ProjectController {
   async createProject(@Body() createProjectDto: createProjectDto) {
     try {
       const res = await this.httpService.axiosRef.post(
-        'http://localhost:8001/api/v1/projects',
+        'http://project_service:8001/api/v1/projects',
         createProjectDto,
       );
 
@@ -38,7 +38,7 @@ export class ProjectController {
     console.log(req.user);
     try {
       const res = await this.httpService.axiosRef.get(
-        'http://localhost:8001/api/v1/projects',
+        'http://project_service:8001/api/v1/projects',
       );
       console.log(res.data);
       return res.data;

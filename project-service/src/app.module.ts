@@ -5,7 +5,7 @@ import { ProjectModule } from './project/project.module';
 
 @Module({
   imports: [
-    MongooseModule.forRoot('mongodb://localhost:27017', {
+    MongooseModule.forRoot('mongodb://project_service_db:27017', {
       autoCreate: true,
       user: 'admin',
       pass: 'nimda',
