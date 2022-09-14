@@ -1,4 +1,11 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  ParseIntPipe,
+  Post,
+  Query,
+} from '@nestjs/common';
 import { EventPattern } from '@nestjs/microservices';
 import { projectDto } from './dto/project.dto';
 import { ProjectService } from './project.service';
@@ -8,9 +15,12 @@ export class ProjectController {
   constructor(private projectService: ProjectService) {}
 
   @Get()
-  async allController() {
-    const response = await this.projectService.getAll();
-    console.log('response in micro', response);
+  async allController(@Query('userId', new ParseIntPipe()) userId: number) {
+    if (userId === 0) {
+      const response = await this.projectService.getAll();
+      return response;
+    }
+    const response = await this.projectService.getAllProjectsOfUser(userId);
     return response;
   }
 

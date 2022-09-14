@@ -17,10 +17,11 @@ const ProjectCard: FC<Props> = ({ project }) => {
       </div>
       <div className="row">
         <p>
-          Nbr of workers: <span>{project.assignedTo.length}</span>
+          Nbr of contributors: <span>{project.assignedTo.length}</span>
         </p>
       </div>
       <div className="row">
+        <h5>Project description</h5>
         <p>{project.description}</p>
       </div>
       <div className="row px-5">

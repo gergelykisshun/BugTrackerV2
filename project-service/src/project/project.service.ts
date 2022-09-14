@@ -15,6 +15,12 @@ export class ProjectService {
     return this.projectModel.find().exec();
   }
 
+  async getAllProjectsOfUser(userId: number) {
+    return this.projectModel
+      .find({ $or: [{ owner: userId }, { 'assignedTo.id': userId }] })
+      .exec();
+  }
+
   async createProject(project: projectDto) {
     const createdProject = await this.projectModel.create(project);
     return createdProject;

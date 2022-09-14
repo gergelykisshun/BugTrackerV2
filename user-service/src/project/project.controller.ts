@@ -35,12 +35,11 @@ export class ProjectController {
   @UseGuards(JwtAuthGuard)
   @Get()
   async getAllProjectsOfUser(@Req() req: Request) {
-    console.log(req.user);
+    const { userId } = req.user as { userId: string; username: string };
     try {
       const res = await this.httpService.axiosRef.get(
-        'http://project_service:8001/api/v1/projects',
+        `http://project_service:8001/api/v1/projects?userId=${userId}`,
       );
-      console.log(res.data);
       return res.data;
     } catch (e) {
       throw new InternalServerErrorException();
