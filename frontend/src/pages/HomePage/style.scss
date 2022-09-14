@@ -1,17 +1,26 @@
 @import "../../variables.scss";
 .welcome-section {
+  position: relative;
+  top: -80px;
+  left: 0;
   display: flex;
   align-items: center;
   justify-content: center;
   height: 100vh;
-  h1 {
-    text-align: center;
-    span {
-      color: $primary-color;
-      text-transform: uppercase;
-      svg {
-        padding-bottom: 5px;
-        font-size: 40px;
+  width: 100%;
+  .welcome-wrapper {
+    padding: 20px 30px;
+    border: 1px solid $primary-color;
+    background-color: $bg3-form;
+    h1 {
+      text-align: center;
+      span {
+        color: $primary-color;
+        text-transform: uppercase;
+        svg {
+          padding-bottom: 5px;
+          font-size: 40px;
+        }
       }
     }
   }
