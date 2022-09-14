@@ -104,7 +104,6 @@ const NewProjectPage: FC<Props> = ({ user }) => {
             <InputField
               value={newProjectData.title}
               name="title"
-              label="title"
               required
               changeHandler={genericInputHandler}
             />
@@ -113,7 +112,6 @@ const NewProjectPage: FC<Props> = ({ user }) => {
             <InputField
               value={newProjectData.description}
               name="description"
-              label="description"
               required
               changeHandler={genericInputHandler}
             />

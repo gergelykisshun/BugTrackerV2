@@ -20,14 +20,31 @@
   background-color: $bg-card;
   border-radius: 12px;
 
-  h2 {
-    position: absolute;
-    top: 45px;
-    left: 45px;
-    color: $text-active;
-    align-self: flex-start;
-    font-size: 27px;
+  .login-header-wrapper {
+    position: relative;
+    top: -30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    h2 {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      width: fit-content;
+      color: $text-active;
+      font-size: 27px;
+    }
+
+    h1 {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      width: fit-content;
+      color: $primary-color;
+    }
   }
+
   input {
     width: 100%;
     height: 48px;
@@ -48,21 +65,4 @@
     text-decoration: underline;
     cursor: pointer;
   }
-}
-
-.login-title {
-  position: absolute;
-  top: 45px;
-  right: 45px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding-bottom: 15px;
-  color: $primary-color;
-}
-
-.tool-tip-style {
-  position: absolute;
-  top: 6px;
-  right: -30px;
 }

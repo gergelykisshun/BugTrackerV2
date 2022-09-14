@@ -3,7 +3,6 @@ import RequiredStar from "../../../svg/requiredStar";
 import "./style.scss";
 
 type Props = {
-  label: string;
   value: any;
   changeHandler: (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -14,7 +13,6 @@ type Props = {
 };
 
 const InputField: FC<Props> = ({
-  label,
   changeHandler,
   name,
   value,

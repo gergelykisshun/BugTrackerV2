@@ -67,28 +67,13 @@ const SignUpPage: FC<Props> = () => {
       navigate("/sign-up", { replace: true });
       toast.error("Registration failed!");
     }
-
-    // fetch("/api/v1/register", {
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   method: "POST",
-    //   credentials: "include",
-    //   body: JSON.stringify(userInput),
-    // })
-    //   .then((res) => res.json())
-    //   .then((data) => {
-    //     console.log(data);
-    //     // go back to login page
-    //     setIsChoosingRole(false);
-    //     navigate("/login", { replace: true });
-    //   });
   };
 
   return (
     <section className="signUp-section">
       {isChoosingRole ? (
         <div className="login-form">
+          <h2>Please choose your role</h2>
           <div className="roles-container">
             <label>
               <input
@@ -116,13 +101,12 @@ const SignUpPage: FC<Props> = () => {
           <button className="primary-btn" onClick={signUpHandler}>
             Sign up
           </button>
-          <strong onClick={toggleRole}>Back</strong>
+          <strong onClick={toggleRole} className="roles-back-btn">Back</strong>
         </div>
       ) : (
         <div className="login-form">
           <h2>Sign up</h2>
           <input
-            style={{ marginTop: 40 }}
             type="text"
             placeholder="Username"
             name="username"
