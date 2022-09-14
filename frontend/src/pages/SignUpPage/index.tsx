@@ -5,6 +5,9 @@ import { IUserSingUpInputs } from "../../interfaces/user";
 import "./style.scss";
 import "../LoginPage/style.scss";
 import { Container } from "@mui/material";
+import { registerUser } from "../../api/user";
+import { useDispatch } from "react-redux";
+import { fetchMeReq } from "../../store/reducers/user/user";
 
 type Props = {};
 
@@ -19,16 +22,25 @@ const SignUpPage: FC<Props> = () => {
   });
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const toggleRole = () => {
-    if (userInput.password !== userInput.passwordAgain) {
-      return toast.error("Passwords you provided don't match!");
+    if (userInput.username.length < 4) {
+      return toast.error("Your username must be at least 4 characters long!");
     }
 
     //EMAIL FORMAT CHECK
     const regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     if (!regex.test(userInput.email)) {
       return toast.error("The e-mail address you entered is not valid!");
+    }
+
+    if (userInput.password.length < 4) {
+      return toast.error("Your password must be at least 4 characters long!");
+    }
+
+    if (userInput.password !== userInput.passwordAgain) {
+      return toast.error("Passwords you provided don't match!");
     }
 
     setIsChoosingRole((prev) => !prev);
@@ -42,9 +54,18 @@ const SignUpPage: FC<Props> = () => {
     }));
   };
 
-  const signUpHandler = () => {
+  const signUpHandler = async () => {
     if (userInput.role === "") {
       return toast.error("Please select a role!");
+    }
+
+    try {
+      await registerUser(userInput);
+      navigate("/login", { replace: true });
+      toast.success("Registration successful!");
+    } catch (e) {
+      navigate("/sign-up", { replace: true });
+      toast.error("Registration failed!");
     }
 
     // fetch("/api/v1/register", {
@@ -62,9 +83,6 @@ const SignUpPage: FC<Props> = () => {
     //     setIsChoosingRole(false);
     //     navigate("/login", { replace: true });
     //   });
-
-    navigate("/login", { replace: true });
-    toast.success("Registration successful!");
   };
 
   return (

@@ -103,7 +103,7 @@ const LoginPage: FC<Props> = () => {
             Login
           </button>
           <p>
-            Don't have an account yet? <Link to={"/signUp"}>Sign up now</Link>
+            Don't have an account yet? <Link to={"/sign-up"}>Sign up now</Link>
           </p>
         </>
       </form>

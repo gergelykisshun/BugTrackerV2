@@ -24,7 +24,7 @@ const Routing: FC<Props> = () => {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<LoginPage />} />
-          <Route path="/signUp" element={<SignUpPage />} />
+          <Route path="/sign-up" element={<SignUpPage />} />
           <Route element={<ProtectedRoute auth={user} redirect="/" />}>
             <Route path="/overview" element={<OverviewPage />} />
             <Route path="/my-account" element={<MyAccountPage user={user} />} />

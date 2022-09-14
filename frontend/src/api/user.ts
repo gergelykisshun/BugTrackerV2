@@ -1,3 +1,4 @@
+import { IUserSingUpInputs } from "../interfaces/user";
 import { IUser } from "../types/types";
 import { api } from "./init";
 
@@ -10,5 +11,12 @@ export const getMe = async (): Promise<IUser> => {
 
 export const getUsers = async (): Promise<IUser[]> => {
   const response = await api.get(`${userBaseUrl}`);
+  return response.data;
+};
+
+export const registerUser = async (
+  registerUserDto: IUserSingUpInputs
+): Promise<IUser> => {
+  const response = await api.post(`${userBaseUrl}`, registerUserDto);
   return response.data;
 };
