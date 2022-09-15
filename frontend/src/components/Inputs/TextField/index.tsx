@@ -7,9 +7,10 @@ type Props = {
   changeHandler: (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => void;
-  required?: boolean;
   name: string;
+  required?: boolean;
   utilityClasses?: string;
+  disabled?: boolean;
 };
 
 const InputField: FC<Props> = ({
@@ -18,6 +19,7 @@ const InputField: FC<Props> = ({
   value,
   required,
   utilityClasses,
+  disabled,
 }) => {
   return (
     <>
@@ -34,6 +36,7 @@ const InputField: FC<Props> = ({
         required={required}
         name={name}
         placeholder={name}
+        disabled={disabled}
       />
     </>
   );

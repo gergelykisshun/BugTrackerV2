@@ -1,5 +1,6 @@
-import { Grid } from "@mui/material";
-import React, { FC } from "react";
+import { FC } from "react";
+import { toast } from "react-toastify";
+import InputField from "../../components/Inputs/TextField";
 import { IUser } from "../../types/types";
 
 type Props = {
@@ -9,12 +10,47 @@ type Props = {
 const MyAccountPage: FC<Props> = ({ user }) => {
   return (
     <section>
-      <h1>My Account</h1>
-      <Grid container>
-        <Grid item>{user.username}</Grid>
-        <Grid item>{user.email}</Grid>
-        <Grid item>{user.role}</Grid>
-      </Grid>
+      <div className="row mb-4">
+        <h1>My Account</h1>
+      </div>
+      <div className="row">
+        <div className="col-sm-6 col-lg-4">
+          <div className="row mb-3">
+            <InputField
+              disabled
+              value={user.username}
+              name="username"
+              changeHandler={() => {}}
+            />
+          </div>
+          <div className="row mb-3">
+            <InputField
+              disabled
+              value={user.role}
+              name="role"
+              changeHandler={() => {}}
+            />
+          </div>
+          <div className="row mb-3">
+            <InputField
+              disabled
+              value={user.email}
+              name="email"
+              changeHandler={() => {}}
+            />
+          </div>
+          <div className="row">
+            <div className="col-6 offset-6">
+              <button
+                className="primary-btn"
+                onClick={() => toast.info("Function under construction!")}
+              >
+                Change
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
   );
 };
