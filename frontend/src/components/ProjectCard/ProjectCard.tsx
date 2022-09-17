@@ -1,4 +1,5 @@
 import { FC } from "react";
+import { Link } from "react-router-dom";
 import { IProject } from "../../types/types";
 import "./style.scss";
 
@@ -30,7 +31,9 @@ const ProjectCard: FC<Props> = ({ project }) => {
         <p>{project.description}</p>
       </div>
       <div className="row px-5">
-        <button className="primary-btn">Go to project</button>
+        <Link to={`/projects/${project._id}`}>
+          <button className="primary-btn">Go to project</button>
+        </Link>
       </div>
     </div>
   );
