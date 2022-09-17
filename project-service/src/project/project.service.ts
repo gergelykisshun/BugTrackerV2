@@ -4,8 +4,8 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import mongoose, { Model, ObjectId } from 'mongoose';
-import { Ticket } from 'src/ticket/entity/ticket.model';
+import { Model, ObjectId } from 'mongoose';
+
 import { projectDto } from './dto/project.dto';
 import { Project, ProjectDocument } from './entities/project.model';
 

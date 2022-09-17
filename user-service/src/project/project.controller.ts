@@ -1,17 +1,18 @@
 import { HttpService } from '@nestjs/axios';
 import {
-  BadRequestException,
   Body,
   Controller,
   Get,
   InternalServerErrorException,
+  Param,
   Post,
   Req,
   UseGuards,
 } from '@nestjs/common';
 import { Request } from 'express';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
-import { createProjectDto } from './dto/createProject.dto';
+import { createProjectDto } from './dto/create-project.dto';
+import { createTicketDto } from './dto/create-ticket.dto';
 import { ProjectService } from './project.service';
 import { IProjectOfUser } from './responseTypes/responseTypes';
 
@@ -59,5 +60,20 @@ export class ProjectController {
     } catch (e) {
       throw new InternalServerErrorException();
     }
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Post('new-ticket/:projectId')
+  async assignTicketToProject(
+    @Param('projectId') projectId: string,
+    @Body() createTicketDto: createTicketDto,
+  ) {
+    console.log(projectId);
+    console.log(createTicketDto);
+
+    return this.projectService.assignTicketToProjectProcess(
+      projectId,
+      createTicketDto,
+    );
   }
 }
