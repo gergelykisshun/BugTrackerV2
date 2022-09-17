@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import mongoose, { Model, ObjectId } from 'mongoose';
 import { Ticket } from 'src/ticket/entity/ticket.model';
@@ -32,11 +36,18 @@ export class ProjectService {
     if (!project) throw new NotFoundException('Project not found');
 
     const ticketsCopy = project.tickets;
+
+    if (ticketsCopy.find((id) => String(id) === String(ticketId))) {
+      console.log('inside error');
+      throw new BadRequestException('ticket already assigned to project');
+    }
+
     ticketsCopy.push(ticketId as ObjectId);
 
     project.set('tickets', ticketsCopy);
 
     const res = await project.save();
+
     return res;
   }
 }
