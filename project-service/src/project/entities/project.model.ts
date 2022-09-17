@@ -22,7 +22,7 @@ export class Project {
     default: [],
     type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Ticket' }],
   })
-  tickets: Ticket[];
+  tickets: mongoose.ObjectId[];
 }
 
 export const ProjectSchema = SchemaFactory.createForClass(Project);

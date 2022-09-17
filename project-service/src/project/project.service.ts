@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import mongoose, { Model, ObjectId } from 'mongoose';
 import { Ticket } from 'src/ticket/entity/ticket.model';
 import { projectDto } from './dto/project.dto';
 import { Project, ProjectDocument } from './entities/project.model';
@@ -27,13 +27,16 @@ export class ProjectService {
     return createdProject;
   }
 
-  async addTicketToProject(projectId: string, ticketId: string) {
+  async addTicketToProject(projectId: string, ticketId: ObjectId) {
     const project = await this.projectModel.findById(projectId);
     if (!project) throw new NotFoundException('Project not found');
 
     const ticketsCopy = project.tickets;
-    // ticketsCopy.push(ticketId);
+    ticketsCopy.push(ticketId as ObjectId);
 
-    project.set();
+    project.set('tickets', ticketsCopy);
+
+    const res = await project.save();
+    return res;
   }
 }
