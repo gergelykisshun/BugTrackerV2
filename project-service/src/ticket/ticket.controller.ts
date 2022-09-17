@@ -1,10 +1,27 @@
-import { Controller } from '@nestjs/common';
+import { Body, Controller, Delete, Param, Patch, Post } from '@nestjs/common';
+import { createTicketDto } from './dto/create-ticket.dto';
+import { updateTicketDto } from './dto/update-ticket.dto';
+import { TicketService } from './ticket.service';
 
 @Controller('ticket')
 export class TicketController {
-  async create() {}
+  constructor(private ticketService: TicketService) {}
 
-  async update() {}
+  @Post()
+  async create(@Body() createTicketDto: createTicketDto) {
+    return this.ticketService.createTicket(createTicketDto);
+  }
 
-  async delete() {}
+  @Patch()
+  async update(
+    @Param('id') id: string,
+    @Body() updateTicketDto: updateTicketDto,
+  ) {
+    return this.ticketService.updateTicket(id, updateTicketDto);
+  }
+
+  @Delete()
+  async delete(@Param('id') id: string) {
+    return this.ticketService.deleteTicket(id);
+  }
 }

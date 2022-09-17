@@ -18,7 +18,7 @@ export class Ticket {
   owner: number;
 
   @Prop({ default: [] })
-  assignedTo: { id: number; username: string; email: string; role: string }[];
+  assignedTo: any[];
 
   @Prop({ default: 'TODO' })
   status: string;
