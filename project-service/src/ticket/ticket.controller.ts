@@ -3,7 +3,7 @@ import { createTicketDto } from './dto/create-ticket.dto';
 import { updateTicketDto } from './dto/update-ticket.dto';
 import { TicketService } from './ticket.service';
 
-@Controller('ticket')
+@Controller('tickets')
 export class TicketController {
   constructor(private ticketService: TicketService) {}
 
