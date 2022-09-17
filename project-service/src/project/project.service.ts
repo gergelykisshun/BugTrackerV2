@@ -17,12 +17,13 @@ export class ProjectService {
   ) {}
 
   async getAll() {
-    return this.projectModel.find().exec();
+    return this.projectModel.find().populate('tickets').exec();
   }
 
   async getAllProjectsOfUser(userId: number) {
     return this.projectModel
       .find({ $or: [{ owner: userId }, { 'assignedTo.id': userId }] })
+      .populate('tickets')
       .exec();
   }
 

@@ -12,7 +12,6 @@ import {
   Req,
   UseGuards,
 } from '@nestjs/common';
-import { JwtService } from '@nestjs/jwt';
 import { ClientProxy } from '@nestjs/microservices';
 import { Request } from 'express';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
@@ -29,7 +28,6 @@ export class UserController {
 
   @Get()
   async allController() {
-    // this.client.emit('emitId', 'Hello from user service with RMQ!');
     return this.userService.getAll();
   }
 
@@ -87,24 +85,4 @@ export class UserController {
     const user = await this.getController(userId);
     if (!user) throw new NotFoundException('User not found!');
   }
-
-  // @Post('login')
-  // async login(
-  //   @Body() userDto: loginUserDto,
-  //   @Res({ passthrough: true }) res: Response,
-  // ) {
-  //   const user = await this.userService.findOneByUsername(userDto.username);
-  //   // if (!user) throw new NotFoundException('Incorrect username!');
-  //   if (!user)
-  //     throw new HttpException('User not found!', HttpStatus.BAD_REQUEST);
-
-  //   const checkPassword = await comparePass(userDto.password, user.password);
-  //   if (!checkPassword) throw new UnauthorizedException('Incorrect password!');
-
-  //   const jwt = await this.jwtService.signAsync({ id: user.id });
-
-  //   res.cookie('jwt', jwt, { httpOnly: true });
-
-  //   return { msg: 'success' };
-  // }
 }
