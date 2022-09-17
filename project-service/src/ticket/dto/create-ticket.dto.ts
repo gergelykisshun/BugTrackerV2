@@ -20,5 +20,5 @@ export class createTicketDto {
   assignedTo: any[];
 
   @IsString()
-  status: string[];
+  status: string;
 }

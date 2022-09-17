@@ -16,5 +16,5 @@ export class updateTicketDto {
   assignedTo: any[];
 
   @IsString()
-  status: string[];
+  status: string;
 }
