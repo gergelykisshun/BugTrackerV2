@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-
 import { ProjectModule } from './project/project.module';
+import { TicketModule } from './ticket/ticket.module';
 
 @Module({
   imports: [
@@ -12,6 +12,7 @@ import { ProjectModule } from './project/project.module';
       dbName: 'project-service-db',
     }),
     ProjectModule,
+    TicketModule,
   ],
   controllers: [],
   providers: [],
