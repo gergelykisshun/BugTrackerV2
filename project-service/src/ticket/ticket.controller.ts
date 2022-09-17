@@ -12,15 +12,16 @@ export class TicketController {
     return this.ticketService.createTicket(createTicketDto);
   }
 
-  @Patch()
+  @Patch(':id')
   async update(
     @Param('id') id: string,
     @Body() updateTicketDto: updateTicketDto,
   ) {
+    console.log(id);
     return this.ticketService.updateTicket(id, updateTicketDto);
   }
 
-  @Delete()
+  @Delete(':id')
   async delete(@Param('id') id: string) {
     return this.ticketService.deleteTicket(id);
   }
