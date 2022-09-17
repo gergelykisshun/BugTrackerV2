@@ -1,6 +1,7 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { Ticket } from 'src/ticket/entity/ticket.model';
 import { projectDto } from './dto/project.dto';
 import { Project, ProjectDocument } from './entities/project.model';
 
@@ -24,5 +25,15 @@ export class ProjectService {
   async createProject(project: projectDto) {
     const createdProject = await this.projectModel.create(project);
     return createdProject;
+  }
+
+  async addTicketToProject(projectId: string, ticketId: string) {
+    const project = await this.projectModel.findById(projectId);
+    if (!project) throw new NotFoundException('Project not found');
+
+    const ticketsCopy = project.tickets;
+    // ticketsCopy.push(ticketId);
+
+    project.set();
   }
 }

@@ -2,11 +2,14 @@ import {
   Body,
   Controller,
   Get,
+  Param,
   ParseIntPipe,
+  Patch,
   Post,
   Query,
 } from '@nestjs/common';
 import { EventPattern } from '@nestjs/microservices';
+import { addTicketToProjectDto } from './dto/addTicketToProject.dto';
 import { projectDto } from './dto/project.dto';
 import { ProjectService } from './project.service';
 
@@ -27,6 +30,17 @@ export class ProjectController {
   @Post()
   async createController(@Body() projectDto: projectDto) {
     return this.projectService.createProject(projectDto);
+  }
+
+  @Patch('/add-ticket/:projectId')
+  async addTicketToProject(
+    @Param('projectId') projectId: string,
+    @Body() addTicketToProjectDto: addTicketToProjectDto,
+  ) {
+    return this.projectService.addTicketToProject(
+      projectId,
+      addTicketToProjectDto.ticketId,
+    );
   }
 
   // RABBITMQ endpoint
