@@ -1,5 +1,9 @@
 import { HttpService } from '@nestjs/axios';
-import { Injectable, InternalServerErrorException } from '@nestjs/common';
+import {
+  Injectable,
+  InternalServerErrorException,
+  NotFoundException,
+} from '@nestjs/common';
 import { UserService } from 'src/user/user.service';
 import { createTicketDto } from './dto/create-ticket.dto';
 import { IProjectOfUser } from './responseTypes/responseTypes';
@@ -47,5 +51,16 @@ export class ProjectService {
     );
 
     return resAddToProject.data;
+  }
+
+  async getProjectById(projectId: string) {
+    try {
+      const project = await this.httpService.axiosRef.get(
+        `http://project_service:8001/api/v1/projects/${projectId}`,
+      );
+      return project.data;
+    } catch (e) {
+      throw new NotFoundException('Project not found!');
+    }
   }
 }

@@ -27,6 +27,11 @@ export class ProjectController {
     return response;
   }
 
+  @Get(':projectId')
+  async getOneById(@Param('projectId') projectId: string) {
+    return this.projectService.getOneById(projectId);
+  }
+
   @Post()
   async createController(@Body() projectDto: projectDto) {
     return this.projectService.createProject(projectDto);

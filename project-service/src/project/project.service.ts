@@ -20,6 +20,15 @@ export class ProjectService {
     return this.projectModel.find().populate('tickets').exec();
   }
 
+  async getOneById(projectId: string) {
+    console.log('final service', projectId);
+    const project = await this.projectModel.findById(projectId);
+
+    if (!project) throw new NotFoundException('Project not found!');
+
+    return project.populate('tickets');
+  }
+
   async getAllProjectsOfUser(userId: number) {
     return this.projectModel
       .find({ $or: [{ owner: userId }, { 'assignedTo.id': userId }] })

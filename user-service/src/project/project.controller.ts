@@ -63,14 +63,17 @@ export class ProjectController {
   }
 
   @UseGuards(JwtAuthGuard)
+  @Get(':projectId')
+  async getProjectById(@Param('projectId') projectId: string) {
+    return this.projectService.getProjectById(projectId);
+  }
+
+  @UseGuards(JwtAuthGuard)
   @Post('new-ticket/:projectId')
   async assignTicketToProject(
     @Param('projectId') projectId: string,
     @Body() createTicketDto: createTicketDto,
   ) {
-    console.log(projectId);
-    console.log(createTicketDto);
-
     return this.projectService.assignTicketToProjectProcess(
       projectId,
       createTicketDto,
