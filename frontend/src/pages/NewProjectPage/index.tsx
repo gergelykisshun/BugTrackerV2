@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 import { createProject } from "../../api/project";
 import { getUsers } from "../../api/user";
 import AssignPersonnel from "../../components/AssignPersonnel/AssignPersonnel";
-import InputField from "../../components/Inputs/TextField";
+import InputField from "../../components/Inputs/InputField";
 
 import { IProject, IUser } from "../../types/types";
 

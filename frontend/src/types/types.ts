@@ -1,4 +1,4 @@
-import { TicketStatus } from "./enums";
+import { TicketPriority, TicketStatus } from "./enums";
 
 export interface IUser {
   id: number;
@@ -23,7 +23,7 @@ export interface ITicket {
   status: TicketStatus;
   owner?: number | IUser;
   description: string;
-  priority: "LOW" | "MEDIUM" | "HIGH" | "URGENT";
+  priority: TicketPriority;
   assignedTo: IUser[];
   attachments?: string[];
 }

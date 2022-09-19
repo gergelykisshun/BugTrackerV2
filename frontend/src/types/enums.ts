@@ -4,3 +4,10 @@ export enum TicketStatus {
   IN_REVIEW = "IN REVIEW",
   DONE = "DONE",
 }
+
+export enum TicketPriority {
+  LOW = "LOW",
+  MEDIUM = "MEDIUM",
+  HIGH = "HIGH",
+  URGENT = "URGENT",
+}

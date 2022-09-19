@@ -1,8 +1,9 @@
 import { FC, useState } from "react";
 import { Modal } from "react-bootstrap";
-import { TicketStatus } from "../../../types/enums";
+import { TicketPriority, TicketStatus } from "../../../types/enums";
 import { ITicket } from "../../../types/types";
-import InputField from "../../Inputs/TextField";
+import DropdownSelect from "../../Inputs/DropdownSelect/DropdownSelect";
+import InputField from "../../Inputs/InputField";
 import "./style.scss";
 
 type Props = {
@@ -14,22 +15,26 @@ const TicketCreateDialog: FC<Props> = ({ isOpen, handleClose }) => {
   const [newTicket, setNewTicket] = useState<ITicket>({
     title: "",
     description: "",
-    priority: "LOW",
+    priority: TicketPriority.LOW,
     status: TicketStatus.TODO,
     assignedTo: [],
     owner: 0,
   });
 
   const genericInputHandler = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
   ) => {
     const { value, name } = e.target;
     setNewTicket((prev) => ({ ...prev, [name]: value }));
+
+    console.log(newTicket);
   };
 
   return (
     <Modal backdrop={true} show={isOpen} onHide={handleClose}>
-      <Modal.Header closeButton>
+      <Modal.Header closeButton closeVariant="white">
         <Modal.Title>Create new ticket</Modal.Title>
       </Modal.Header>
       <Modal.Body>
@@ -41,6 +46,12 @@ const TicketCreateDialog: FC<Props> = ({ isOpen, handleClose }) => {
         <InputField
           name="description"
           value={newTicket.description}
+          changeHandler={genericInputHandler}
+        />
+        <DropdownSelect
+          name="priority"
+          value={newTicket.priority}
+          elements={Object.values(TicketPriority)}
           changeHandler={genericInputHandler}
         />
         <InputField

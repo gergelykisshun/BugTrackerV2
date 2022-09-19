@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { toast } from "react-toastify";
-import InputField from "../../components/Inputs/TextField";
+import InputField from "../../components/Inputs/InputField";
 import { IUser } from "../../types/types";
 
 type Props = {
