@@ -11,15 +11,17 @@ export interface IProject {
   title: string;
   description: string;
   assignedTo: IUser[];
-  tickets: string[];
+  tickets: ITicket[];
   owner: number | IUser;
 }
 
 export interface ITicket {
+  _id: string;
   title: string;
+  status: string;
+  owner: number | IUser;
   description: string;
   priority: string;
   assignedTo: IUser[];
-  // downloadUrl array
-  attachment: string[];
+  attachments?: string[];
 }

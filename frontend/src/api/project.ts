@@ -13,3 +13,8 @@ export const getProjectsOfUser = async () => {
   const response = await api.get(`${projectBaseUrl}`);
   return response.data as IProject[];
 };
+
+export const getProjectById = async (projectId: string): Promise<IProject> => {
+  const response = await api.get(`${projectBaseUrl}/${projectId}`);
+  return response.data;
+};
