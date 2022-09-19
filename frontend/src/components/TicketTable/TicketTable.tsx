@@ -36,7 +36,9 @@ const TicketTable: FC<Props> = ({ status, tickets }) => {
           </tbody>
         </Table>
       ) : (
-        "There are no tickets in this status!"
+        <p style={{ borderLeft: "1px solid #08a7f3", paddingLeft: 8 }}>
+          There are no tickets in this status!
+        </p>
       )}
     </section>
   );
