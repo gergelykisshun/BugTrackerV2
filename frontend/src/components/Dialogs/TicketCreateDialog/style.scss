@@ -1,0 +1,14 @@
+@import "../../../variables.scss";
+
+div.modal-content {
+  background-color: $bg3-form;
+  div.modal-header {
+    button.btn-close {
+      display: none;
+    }
+    border-bottom-color: $primary-color;
+  }
+  div.modal-footer {
+    border-top-color: $primary-color;
+  }
+}

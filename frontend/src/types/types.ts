@@ -18,12 +18,12 @@ export interface IProject {
 }
 
 export interface ITicket {
-  _id: string;
+  _id?: string;
   title: string;
   status: TicketStatus;
-  owner: number | IUser;
+  owner?: number | IUser;
   description: string;
-  priority: string;
+  priority: "LOW" | "MEDIUM" | "HIGH" | "URGENT";
   assignedTo: IUser[];
   attachments?: string[];
 }
