@@ -3,6 +3,7 @@ import { FC, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { getProjectById } from "../../api/project";
+import TicketCreateDialog from "../../components/Dialogs/TicketCreateDialog/TicketCreateDialog";
 import TicketPreview from "../../components/TicketPreview/TicketPreview";
 import TicketTable from "../../components/TicketTable/TicketTable";
 import { TicketStatus } from "../../types/enums";
@@ -15,6 +16,7 @@ const ProjectPage: FC<Props> = () => {
   const { projectId } = useParams();
   const [loadingProject, setLoadingProject] = useState<boolean>(true);
   const [project, setProject] = useState<IProject | null>(null);
+  const [isCreatingTicket, setIsCreatingTicket] = useState<boolean>(false);
 
   const fetchProject = async () => {
     if (projectId) {
@@ -41,23 +43,41 @@ const ProjectPage: FC<Props> = () => {
 
   return (
     project && (
-      <section className="project-page-wrapper">
-        <div className="row">
-          <h1>{project.title}</h1>
-          <p className="project-description">{project.description}</p>
-        </div>
-        <div className="row mt-5">
-          <h3>Tickets</h3>
-          {Object.values(TicketStatus).map((status) => (
-            <TicketTable
-              status={status}
-              tickets={project.tickets.filter(
-                (ticket) => ticket.status === status
-              )}
-            />
-          ))}
-        </div>
-      </section>
+      <>
+        {isCreatingTicket && (
+          <TicketCreateDialog
+            isOpen={isCreatingTicket}
+            handleClose={() => setIsCreatingTicket(false)}
+          />
+        )}
+        <section className="project-page-wrapper">
+          <div className="row">
+            <h1>{project.title}</h1>
+            <p className="project-description">{project.description}</p>
+          </div>
+          <div className="row mt-5">
+            <div className="row d-flex justify-content-between">
+              <h3 style={{ width: "fit-content" }}>Tickets</h3>
+              <div style={{ maxWidth: 200 }}>
+                <button
+                  className="primary-btn"
+                  onClick={() => setIsCreatingTicket(true)}
+                >
+                  Create new ticket
+                </button>
+              </div>
+            </div>
+            {Object.values(TicketStatus).map((status) => (
+              <TicketTable
+                status={status}
+                tickets={project.tickets.filter(
+                  (ticket) => ticket.status === status
+                )}
+              />
+            ))}
+          </div>
+        </section>
+      </>
     )
   );
 };
