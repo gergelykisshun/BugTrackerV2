@@ -3,7 +3,11 @@ import { FC, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { getProjectById } from "../../api/project";
+import TicketPreview from "../../components/TicketPreview/TicketPreview";
+import TicketTable from "../../components/TicketTable/TicketTable";
+import { TicketStatus } from "../../types/enums";
 import { IProject } from "../../types/types";
+import "./style.scss";
 
 type Props = {};
 
@@ -37,13 +41,21 @@ const ProjectPage: FC<Props> = () => {
 
   return (
     project && (
-      <section>
+      <section className="project-page-wrapper">
         <div className="row">
           <h1>{project.title}</h1>
-          <p>{project.description}</p>
+          <p className="project-description">{project.description}</p>
         </div>
         <div className="row mt-5">
           <h3>Tickets</h3>
+          {Object.values(TicketStatus).map((status) => (
+            <TicketTable
+              status={status}
+              tickets={project.tickets.filter(
+                (ticket) => ticket.status === status
+              )}
+            />
+          ))}
         </div>
       </section>
     )

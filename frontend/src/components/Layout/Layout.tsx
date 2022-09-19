@@ -17,7 +17,7 @@ const Layout: FC<Props> = ({ children }) => {
       <Header user={user} />
       {user && <Sidebar user={user} />}
       <div className="app-container">{children}</div>
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 };

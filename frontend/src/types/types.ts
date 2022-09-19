@@ -1,3 +1,5 @@
+import { TicketStatus } from "./enums";
+
 export interface IUser {
   id: number;
   username: string;
@@ -18,7 +20,7 @@ export interface IProject {
 export interface ITicket {
   _id: string;
   title: string;
-  status: string;
+  status: TicketStatus;
   owner: number | IUser;
   description: string;
   priority: string;
