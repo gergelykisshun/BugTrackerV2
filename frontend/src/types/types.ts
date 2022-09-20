@@ -1,22 +1,29 @@
+import { TicketPriority, TicketStatus } from "./enums";
+
 export interface IUser {
   id: number;
   username: string;
   email: string;
   role: string;
+  isSelected?: boolean;
 }
 
 export interface IProject {
+  _id?: string;
   title: string;
   description: string;
   assignedTo: IUser[];
-  tickets: string[];
+  tickets: ITicket[];
+  owner: number | IUser;
 }
 
 export interface ITicket {
+  _id?: string;
   title: string;
+  status: TicketStatus;
+  owner?: number | IUser;
   description: string;
-  priority: string;
+  priority: TicketPriority;
   assignedTo: IUser[];
-  // downloadUrl array
-  attachment: string[];
+  attachments?: string[];
 }

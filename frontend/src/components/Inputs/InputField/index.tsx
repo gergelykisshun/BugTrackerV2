@@ -3,23 +3,23 @@ import RequiredStar from "../../../svg/requiredStar";
 import "./style.scss";
 
 type Props = {
-  label: string;
   value: any;
   changeHandler: (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => void;
-  required?: boolean;
   name: string;
+  required?: boolean;
   utilityClasses?: string;
+  disabled?: boolean;
 };
 
 const InputField: FC<Props> = ({
-  label,
   changeHandler,
   name,
   value,
   required,
   utilityClasses,
+  disabled,
 }) => {
   return (
     <>
@@ -36,6 +36,7 @@ const InputField: FC<Props> = ({
         required={required}
         name={name}
         placeholder={name}
+        disabled={disabled}
       />
     </>
   );

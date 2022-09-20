@@ -1,0 +1,11 @@
+@import "../../../variables.scss";
+
+div.modal-content {
+  background-color: $bg-card;
+  div.modal-header {
+    border-bottom-color: $primary-color;
+  }
+  div.modal-footer {
+    border-top-color: $primary-color;
+  }
+}

@@ -1,24 +1,43 @@
 import { FC, useEffect, useState } from "react";
 import CircularProgress from "@mui/material/CircularProgress";
+import { getProjectsOfUser } from "../../api/project";
+import { IProject } from "../../types/types";
+import { toast } from "react-toastify";
+import ProjectCard from "../../components/ProjectCard/ProjectCard";
 
 type Props = {};
 
 const MyProjects: FC<Props> = () => {
-  const [loading, setLoading] = useState<boolean>(true);
+  const [loadingProjects, setLoadingProjects] = useState<boolean>(true);
+  const [projects, setProjects] = useState<IProject[]>([]);
+
+  const fetchProjectsOfUser = async () => {
+    try {
+      const response = await getProjectsOfUser();
+      setProjects(response);
+      setLoadingProjects(false);
+    } catch (e) {
+      toast.error("Could not load your projects!");
+      setLoadingProjects(false);
+    }
+  };
 
   useEffect(() => {
-    // fetch projects
-    setTimeout(() => {
-      setLoading(false);
-    }, 1000);
+    fetchProjectsOfUser();
   }, []);
 
   let content;
 
-  if (loading) {
+  if (loadingProjects) {
     content = <CircularProgress />;
   } else {
-    content = <p>My projects mapped out</p>;
+    content = (
+      <div className="row" style={{ gap: 10 }}>
+        {projects.map((project) => (
+          <ProjectCard key={project._id} project={project} />
+        ))}
+      </div>
+    );
   }
 
   return (

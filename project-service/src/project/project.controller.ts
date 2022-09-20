@@ -1,5 +1,15 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  ParseIntPipe,
+  Patch,
+  Post,
+  Query,
+} from '@nestjs/common';
 import { EventPattern } from '@nestjs/microservices';
+import { addTicketToProjectDto } from './dto/addTicketToProject.dto';
 import { projectDto } from './dto/project.dto';
 import { ProjectService } from './project.service';
 
@@ -8,16 +18,34 @@ export class ProjectController {
   constructor(private projectService: ProjectService) {}
 
   @Get()
-  async allController() {
-    return this.projectService.getAll();
+  async allController(@Query('userId', new ParseIntPipe()) userId: number) {
+    if (userId === 0) {
+      const response = await this.projectService.getAll();
+      return response;
+    }
+    const response = await this.projectService.getAllProjectsOfUser(userId);
+    return response;
+  }
+
+  @Get(':projectId')
+  async getOneById(@Param('projectId') projectId: string) {
+    return this.projectService.getOneById(projectId);
   }
 
   @Post()
   async createController(@Body() projectDto: projectDto) {
-    console.log('inside project microservice');
-    console.log('body', projectDto);
-
     return this.projectService.createProject(projectDto);
+  }
+
+  @Patch('/add-ticket/:projectId')
+  async addTicketToProject(
+    @Param('projectId') projectId: string,
+    @Body() addTicketToProjectDto: addTicketToProjectDto,
+  ) {
+    return this.projectService.addTicketToProject(
+      projectId,
+      addTicketToProjectDto.ticketId,
+    );
   }
 
   // RABBITMQ endpoint

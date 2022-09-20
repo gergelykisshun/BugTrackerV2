@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+import mongoose, { Document, ObjectId } from 'mongoose';
+import { Ticket } from 'src/ticket/entity/ticket.model';
 
 export type ProjectDocument = Project & Document;
 
@@ -11,11 +12,17 @@ export class Project {
   @Prop({ required: true })
   description: string;
 
-  @Prop({ default: [] })
-  assignedTo: string[];
+  @Prop({ required: true })
+  owner: number;
 
   @Prop({ default: [] })
-  tickets: string[];
+  assignedTo: { id: number; username: string; email: string; role: string }[];
+
+  @Prop({
+    default: [],
+    type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Ticket' }],
+  })
+  tickets: mongoose.ObjectId[];
 }
 
 export const ProjectSchema = SchemaFactory.createForClass(Project);

@@ -8,8 +8,8 @@ import { fetchMeFail, fetchMeReq, fetchMeSuccess } from "./user";
 //   yield console.log(action.payload);
 //   console.log("user saga is intergrated and works!");
 // }
+
 export function* fetchMeSaga() {
-  console.log("fetch me initiated!");
   try {
     const user: IUser = yield call(getMe);
     yield put(fetchMeSuccess(user));

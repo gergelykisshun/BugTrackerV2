@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import { ChangeEvent, FC, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import AdbIcon from "@mui/icons-material/Adb";
 import InfoIcon from "@mui/icons-material/Info";
@@ -6,8 +6,6 @@ import Tooltip from "@mui/material/Tooltip";
 import { IUserLoginInputs } from "../../interfaces/user";
 import { Link, useNavigate } from "react-router-dom";
 import "./style.scss";
-import InputField from "../../components/Inputs/TextField";
-import { api } from "../../api/init";
 import { loginUser } from "../../api/auth";
 import { useDispatch } from "react-redux";
 import { fetchMeSuccess } from "../../store/reducers/user/user";
@@ -46,7 +44,9 @@ const LoginPage: FC<Props> = () => {
     };
   }, [posting]);
 
-  const inputHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const inputHandler = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
     setUserInput((prev) => ({
       ...prev,
@@ -68,13 +68,7 @@ const LoginPage: FC<Props> = () => {
   return (
     <section className="login-section">
       <form onSubmit={(e) => e.preventDefault()} className="login-form">
-        <div className="login-bug-tracker">
-          <h1 className="login-title">
-            Bug-tracker
-            <AdbIcon />
-          </h1>
-        </div>
-        <>
+        <div className="row login-header-wrapper">
           <h2>
             Login
             <Tooltip
@@ -85,6 +79,12 @@ const LoginPage: FC<Props> = () => {
               <InfoIcon onClick={autoFillInput} />
             </Tooltip>
           </h2>
+          <h1 className="login-title">
+            Bug-tracker
+            <AdbIcon />
+          </h1>
+        </div>
+        <>
           <input
             type="text"
             placeholder="Username"
@@ -103,7 +103,7 @@ const LoginPage: FC<Props> = () => {
             Login
           </button>
           <p>
-            Don't have an account yet? <Link to={"/signUp"}>Sign up now</Link>
+            Don't have an account yet? <Link to={"/sign-up"}>Sign up now</Link>
           </p>
         </>
       </form>

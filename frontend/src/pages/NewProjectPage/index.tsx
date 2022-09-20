@@ -1,11 +1,12 @@
 import { CircularProgress } from "@mui/material";
-import Grid from "@mui/material/Grid";
 import React, { FC, useEffect, useState } from "react";
 import { Table } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { createProject } from "../../api/project";
 import { getUsers } from "../../api/user";
 import AssignPersonnel from "../../components/AssignPersonnel/AssignPersonnel";
-import InputField from "../../components/Inputs/TextField";
+import InputField from "../../components/Inputs/InputField";
 
 import { IProject, IUser } from "../../types/types";
 
@@ -19,14 +20,17 @@ const NewProjectPage: FC<Props> = ({ user }) => {
     description: "",
     assignedTo: [],
     tickets: [],
+    owner: user.id,
   });
   const [users, setUsers] = useState<IUser[]>([]);
   const [loadingUsers, setLoadingUsers] = useState<boolean>(true);
 
+  const navigate = useNavigate();
+
   const fetchUsers = async () => {
     try {
       const result = await getUsers();
-      setUsers(result);
+      setUsers(result.map((user) => ({ ...user, isSelected: false })));
       setLoadingUsers(false);
     } catch (e) {
       toast.error("Couldn't fetch users!");
@@ -46,14 +50,45 @@ const NewProjectPage: FC<Props> = ({ user }) => {
   };
 
   const assignToProject = (selectedWorker: IUser) => {
+    // add selected worker to the assignedTo array
     setNewProjectData((prev) => {
       if (prev.assignedTo.every((worker) => worker.id !== selectedWorker.id)) {
+        toast.info(`${selectedWorker.username} assigned to project!`);
         return { ...prev, assignedTo: [...prev.assignedTo, selectedWorker] };
       } else {
-        toast.error("Worker already added!");
-        return { ...prev };
+        toast.info(`${selectedWorker.username} removed from project!`);
+        return {
+          ...prev,
+          assignedTo: prev.assignedTo.filter(
+            (worker) => worker.id !== selectedWorker.id
+          ),
+        };
       }
     });
+
+    // change selected users isSelected state
+    setUsers((prevUsers) =>
+      prevUsers.map((user) => {
+        if (user.id === selectedWorker.id) {
+          return { ...user, isSelected: !user.isSelected };
+        } else {
+          return user;
+        }
+      })
+    );
+  };
+
+  const submitProject = async () => {
+    if (newProjectData.title === "" || newProjectData.description === "") {
+      return toast.error("Please fill all required fields!");
+    }
+    try {
+      const result = await createProject(newProjectData);
+      toast.success(result.msg);
+      navigate("/my-projects");
+    } catch (e) {
+      toast.error("Could not create project!");
+    }
   };
 
   return (
@@ -62,12 +97,12 @@ const NewProjectPage: FC<Props> = ({ user }) => {
         <h1>Create new project</h1>
       </div>
       <div className="row">
-        <div className="col-12 col-md-6">
+        <div className="col-12 col-md-8">
+          <h4>Basic information</h4>
           <div className="row mb-3">
             <InputField
               value={newProjectData.title}
               name="title"
-              label="title"
               required
               changeHandler={genericInputHandler}
             />
@@ -76,32 +111,50 @@ const NewProjectPage: FC<Props> = ({ user }) => {
             <InputField
               value={newProjectData.description}
               name="description"
-              label="description"
               required
               changeHandler={genericInputHandler}
             />
           </div>
-          <div className="row d-flex" style={{ gap: 15 }}>
+          <div className="row mt-3 d-flex" style={{ gap: 15 }}>
             {loadingUsers ? (
               <div className="col-6 offset-3">
                 <CircularProgress />
               </div>
             ) : (
-              <Table responsive>
-                <thead>
-                  <tr>
-                    <th>Username</th>
-                    <th>Role</th>
-                    <th>Add</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {users.map((user) => (
-                    <AssignPersonnel key={user.username} user={user} />
-                  ))}
-                </tbody>
-              </Table>
+              <>
+                <h4>Assign personnel</h4>
+                <Table
+                  variant="dark"
+                  hover
+                  responsive
+                  className="assign-personnel-table"
+                >
+                  <thead>
+                    <tr>
+                      <th>Username</th>
+                      <th>Role</th>
+                      <th>Add</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {users.map((user) => (
+                      <AssignPersonnel
+                        key={user.username}
+                        user={user}
+                        assignToProject={assignToProject}
+                      />
+                    ))}
+                  </tbody>
+                </Table>
+              </>
             )}
+          </div>
+          <div className="row">
+            <div className="col-md-6">
+              <button className="primary-btn" onClick={submitProject}>
+                Create project
+              </button>
+            </div>
           </div>
         </div>
       </div>

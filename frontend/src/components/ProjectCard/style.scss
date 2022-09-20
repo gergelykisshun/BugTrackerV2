@@ -1,0 +1,10 @@
+@import "../../variables.scss";
+.project-card-container {
+  padding: 10px;
+  border: 1px solid $primary-color;
+  border-radius: $border-radius;
+
+  span {
+    color: $primary-color;
+  }
+}

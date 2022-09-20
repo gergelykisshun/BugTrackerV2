@@ -7,7 +7,10 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { logoutUser } from "../../../api/auth";
 import { api } from "../../../api/init";
-import { fetchMeSuccess, logoutUserAction } from "../../../store/reducers/user/user";
+import {
+  fetchMeSuccess,
+  logoutUserAction,
+} from "../../../store/reducers/user/user";
 import "./style.scss";
 
 type Props = {
@@ -22,25 +25,29 @@ const LogoutDialog: FC<Props> = ({ isOpen, handleClose }) => {
     <Dialog onClose={handleClose} open={isOpen}>
       <div className="logout-dialog-container">
         <DialogTitle>Are you sure you want to log out?</DialogTitle>
-        <div className="logout-btn-container mb-3">
-          <Button variant="contained" onClick={handleClose}>
-            Cancel
-          </Button>
-          <Button
-            variant="contained"
-            onClick={async () => {
-              handleClose();
-              try {
-                await logoutUser();
-                dispatch(logoutUserAction());
-                navigate('/');
-              } catch(e) {
-                toast.error('Logout failed!')
-              }
-            }}
-          >
-            Logout
-          </Button>
+        <div className="logout-btn-container mb-3 px-3">
+          <div className="col">
+            <button className="secondary-btn" onClick={handleClose}>
+              Cancel
+            </button>
+          </div>
+          <div className="col">
+            <button
+              className="primary-btn"
+              onClick={async () => {
+                handleClose();
+                try {
+                  await logoutUser();
+                  dispatch(logoutUserAction());
+                  navigate("/");
+                } catch (e) {
+                  toast.error("Logout failed!");
+                }
+              }}
+            >
+              Logout
+            </button>
+          </div>
         </div>
       </div>
     </Dialog>

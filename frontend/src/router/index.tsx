@@ -8,6 +8,7 @@ import MyAccountPage from "../pages/MyAccountPage";
 import MyProjects from "../pages/MyProjectsPage";
 import NewProjectPage from "../pages/NewProjectPage";
 import OverviewPage from "../pages/OverviewPage";
+import ProjectPage from "../pages/ProjectPage";
 import SignUpPage from "../pages/SignUpPage";
 import { userSelector } from "../store/reducers/user/userSelectors";
 import ProtectedRoute from "./routeTypes/ProtectedRoute";
@@ -24,7 +25,7 @@ const Routing: FC<Props> = () => {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<LoginPage />} />
-          <Route path="/signUp" element={<SignUpPage />} />
+          <Route path="/sign-up" element={<SignUpPage />} />
           <Route element={<ProtectedRoute auth={user} redirect="/" />}>
             <Route path="/overview" element={<OverviewPage />} />
             <Route path="/my-account" element={<MyAccountPage user={user} />} />
@@ -33,13 +34,10 @@ const Routing: FC<Props> = () => {
               path="/new-project"
               element={<NewProjectPage user={user} />}
             />
+            <Route path="/projects/:projectId" element={<ProjectPage />} />
           </Route>
 
           <Route path="/my-tickets" element={<div>Tickets</div>} />
-          <Route
-            path="/projects/:id"
-            element={<div>Projects with ID param</div>}
-          />
           {/* <Route path="/" element={<Home />} exact />
           <Route path="/assign-roles" element={<AssignRoles />} />
           <Route path="/assign-projects" element={<AssignProjects />} />

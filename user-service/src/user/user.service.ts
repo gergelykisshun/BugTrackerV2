@@ -12,7 +12,9 @@ export class UserService {
   ) {}
 
   async getAll(): Promise<User[]> {
-    return this.userRepository.find();
+    return this.userRepository.find({
+      select: ['id', 'email', 'username', 'role'],
+    });
   }
 
   async createUser(user: createUserDto): Promise<User> {
