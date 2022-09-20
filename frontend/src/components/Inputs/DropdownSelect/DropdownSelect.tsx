@@ -27,8 +27,8 @@ const DropdownSelect: FC<Props> = ({
         onChange={changeHandler}
         className={`select-field ${utilityClasses || ""}`}
       >
-        {elements.map((element) => (
-          <option className="option-field" value={element}>
+        {elements.map((element, i) => (
+          <option key={i} className="option-field" value={element}>
             {element}
           </option>
         ))}

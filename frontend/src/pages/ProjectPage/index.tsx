@@ -4,7 +4,6 @@ import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { getProjectById } from "../../api/project";
 import TicketCreateDialog from "../../components/Dialogs/TicketCreateDialog/TicketCreateDialog";
-import TicketPreview from "../../components/TicketPreview/TicketPreview";
 import TicketTable from "../../components/TicketTable/TicketTable";
 import { TicketStatus } from "../../types/enums";
 import { IProject } from "../../types/types";
@@ -24,7 +23,6 @@ const ProjectPage: FC<Props> = () => {
         const project = await getProjectById(projectId);
         setProject(project);
         setLoadingProject(false);
-        console.log(project);
       } catch (e) {
         setProject(null);
         setLoadingProject(false);
@@ -52,6 +50,7 @@ const ProjectPage: FC<Props> = () => {
               ...user,
               isSelected: false,
             }))}
+            projectId={projectId as string}
           />
         )}
         <section className="project-page-wrapper">

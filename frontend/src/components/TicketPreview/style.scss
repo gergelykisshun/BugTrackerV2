@@ -1,5 +1,6 @@
 @import "../../variables.scss";
 
 .ticket-wrapper {
+  cursor: pointer;
   border-left: 1px solid $primary-color;
 }

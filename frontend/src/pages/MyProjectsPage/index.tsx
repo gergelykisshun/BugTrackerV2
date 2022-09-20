@@ -14,7 +14,6 @@ const MyProjects: FC<Props> = () => {
   const fetchProjectsOfUser = async () => {
     try {
       const response = await getProjectsOfUser();
-      console.log("FE projects response", response);
       setProjects(response);
       setLoadingProjects(false);
     } catch (e) {

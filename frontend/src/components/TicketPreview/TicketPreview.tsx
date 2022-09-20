@@ -10,7 +10,7 @@ const TicketPreview: FC<Props> = ({ ticket }) => {
   const workers = ticket.assignedTo.map((worker) => worker.username);
 
   return (
-    <tr className=" ticket-wrapper">
+    <tr className="ticket-wrapper">
       <td>{ticket.title}</td>
       <td>{ticket.priority}</td>
       <td>{ticket.status}</td>

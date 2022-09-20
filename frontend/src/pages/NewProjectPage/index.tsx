@@ -86,7 +86,6 @@ const NewProjectPage: FC<Props> = ({ user }) => {
       const result = await createProject(newProjectData);
       toast.success(result.msg);
       navigate("/my-projects");
-      console.log("created project", result);
     } catch (e) {
       toast.error("Could not create project!");
     }

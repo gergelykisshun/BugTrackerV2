@@ -1,6 +1,8 @@
 import { FC, useState } from "react";
 import { Modal, Table } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { assignTicketToProject } from "../../../api/ticket";
 import { TicketPriority, TicketStatus } from "../../../types/enums";
 import { ITicket, IUser } from "../../../types/types";
 import AssignPersonnel from "../../AssignPersonnel/AssignPersonnel";
@@ -12,9 +14,16 @@ type Props = {
   isOpen: boolean;
   handleClose: () => void;
   workers: IUser[];
+  projectId: string;
 };
 
-const TicketCreateDialog: FC<Props> = ({ isOpen, handleClose, workers }) => {
+const TicketCreateDialog: FC<Props> = ({
+  isOpen,
+  handleClose,
+  workers,
+  projectId,
+}) => {
+  const navigate = useNavigate();
   const [newTicket, setNewTicket] = useState<ITicket>({
     title: "",
     description: "",
@@ -34,18 +43,16 @@ const TicketCreateDialog: FC<Props> = ({ isOpen, handleClose, workers }) => {
   ) => {
     const { value, name } = e.target;
     setNewTicket((prev) => ({ ...prev, [name]: value }));
-
-    console.log(newTicket);
   };
 
   // TODO MAKE TABLE A COMPONENT WITH THIS INCLUDED
   const assignToProject = (selectedWorker: IUser) => {
     setNewTicket((prev) => {
       if (prev.assignedTo.every((worker) => worker.id !== selectedWorker.id)) {
-        toast.info(`${selectedWorker.username} assigned to project!`);
+        toast.info(`${selectedWorker.username} assigned to ticket!`);
         return { ...prev, assignedTo: [...prev.assignedTo, selectedWorker] };
       } else {
-        toast.info(`${selectedWorker.username} removed from project!`);
+        toast.info(`${selectedWorker.username} removed from ticket!`);
         return {
           ...prev,
           assignedTo: prev.assignedTo.filter(
@@ -65,6 +72,20 @@ const TicketCreateDialog: FC<Props> = ({ isOpen, handleClose, workers }) => {
         }
       })
     );
+  };
+
+  const createTicketHandler = async () => {
+    if (newTicket.title === "" || newTicket.description === "") {
+      return toast.error("Please fill all required fields!");
+    }
+    try {
+      const res = await assignTicketToProject(projectId, newTicket);
+      handleClose();
+      navigate(0);
+      toast.success(`Ticket created with title: ${newTicket.title}!`);
+    } catch (e) {
+      toast.error("Ticket creation failed!");
+    }
   };
 
   return (
@@ -136,7 +157,7 @@ const TicketCreateDialog: FC<Props> = ({ isOpen, handleClose, workers }) => {
           </button>
         </div>
         <div className="col-12 col-sm-3">
-          <button className="primary-btn" onClick={handleClose}>
+          <button className="primary-btn" onClick={createTicketHandler}>
             Create
           </button>
         </div>

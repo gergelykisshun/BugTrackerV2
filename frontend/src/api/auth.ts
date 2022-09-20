@@ -7,7 +7,6 @@ export const loginUser = async (userData: {
   password: string;
 }) => {
   const response = await api.post(`${authBaseUrl}/login`, userData);
-  console.log(response.data);
   return response.data;
 };
 

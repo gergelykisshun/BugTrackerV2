@@ -27,11 +27,7 @@ export const userSagaTest = createAction("USER_SAGA_TESTING");
 export const userReducer: Reducer<IUserReducer, AnyAction> = createReducer(
   initialUserState,
   (builder) => {
-    builder.addCase(userSagaTest, (state, action) => {
-      console.log("reducer actions working");
-    });
     builder.addCase(fetchMeSuccess, (state, action) => {
-      console.log(action.payload);
       state.user = action.payload;
       state.loading = false;
     });

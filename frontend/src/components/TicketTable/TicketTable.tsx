@@ -31,7 +31,7 @@ const TicketTable: FC<Props> = ({ status, tickets }) => {
           </thead>
           <tbody>
             {tickets.map((ticket) => (
-              <TicketPreview ticket={ticket} />
+              <TicketPreview key={ticket._id} ticket={ticket} />
             ))}
           </tbody>
         </Table>
