@@ -1,10 +1,12 @@
 import { FC } from "react";
+import "./style.scss";
 
 type Props = {
   elements: string[];
   value: string;
   name: string;
   changeHandler: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+  utilityClasses?: string;
 };
 
 const DropdownSelect: FC<Props> = ({
@@ -12,13 +14,23 @@ const DropdownSelect: FC<Props> = ({
   name,
   value,
   changeHandler,
+  utilityClasses,
 }) => {
   return (
-    <select name={name} id={name} value={value} onChange={changeHandler}>
-      {elements.map((element) => (
-        <option value={element}>{element}</option>
-      ))}
-    </select>
+    <>
+      <p className="text-field-label mb-1">{name}</p>
+      <select
+        name={name}
+        id={name}
+        value={value}
+        onChange={changeHandler}
+        className={utilityClasses || ""}
+      >
+        {elements.map((element) => (
+          <option value={element}>{element}</option>
+        ))}
+      </select>
+    </>
   );
 };
 

@@ -48,6 +48,10 @@ const ProjectPage: FC<Props> = () => {
           <TicketCreateDialog
             isOpen={isCreatingTicket}
             handleClose={() => setIsCreatingTicket(false)}
+            workers={project.assignedTo.map((user) => ({
+              ...user,
+              isSelected: false,
+            }))}
           />
         )}
         <section className="project-page-wrapper">
@@ -69,6 +73,7 @@ const ProjectPage: FC<Props> = () => {
             </div>
             {Object.values(TicketStatus).map((status) => (
               <TicketTable
+                key={status}
                 status={status}
                 tickets={project.tickets.filter(
                   (ticket) => ticket.status === status
