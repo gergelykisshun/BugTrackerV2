@@ -1,5 +1,6 @@
-import { FC } from "react";
+import { FC, useRef } from "react";
 import "./style.scss";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 
 type Props = {
   elements: string[];
@@ -17,20 +18,22 @@ const DropdownSelect: FC<Props> = ({
   utilityClasses,
 }) => {
   return (
-    <>
+    <div className="custom-select">
       <p className="text-field-label mb-1">{name}</p>
       <select
         name={name}
         id={name}
         value={value}
         onChange={changeHandler}
-        className={utilityClasses || ""}
+        className={`select-field ${utilityClasses || ""}`}
       >
         {elements.map((element) => (
-          <option value={element}>{element}</option>
+          <option className="option-field" value={element}>
+            {element}
+          </option>
         ))}
       </select>
-    </>
+    </div>
   );
 };
 
