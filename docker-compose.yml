@@ -44,7 +44,7 @@ services:
       - ./mail-service:/app
     command: 'bash -c "npm install && npm run start:dev"'
     ports:
-      - "8001:8001"
+      - "8005:8005"
     env_file:
       - ./mail-service/.env
 
@@ -70,6 +70,17 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: nimda
     volumes:
       - ./project-service:/data/project-service-db
+
+  mail-db:
+    image: mongo:5.0.3
+    container_name: mail_db
+    ports:
+      - 27018:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: nimda
+    volumes:
+      - ./mail-service:/data/mail-db
 
   rabbitmq:
     image: rabbitmq:3.9-management
