@@ -6,12 +6,12 @@ import { MailModule } from './mail/mail.module';
 
 @Module({
   imports: [
-    MongooseModule.forRoot('mongodb://mail_db:27017', {
-      autoCreate: true,
-      user: 'admin',
-      pass: 'nimda',
-      dbName: 'mail-service-db',
-    }),
+    // MongooseModule.forRoot('mongodb://mail_db:27017', {
+    //   autoCreate: true,
+    //   user: 'admin',
+    //   pass: 'nimda',
+    //   dbName: 'mail-service-db',
+    // }),
     MailerModule.forRoot({
       preview: true,
       transport: {
