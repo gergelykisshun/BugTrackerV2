@@ -2,12 +2,12 @@ import { MailerService } from '@nestjs-modules/mailer';
 import { Injectable } from '@nestjs/common';
 
 @Injectable()
-export class AppService {
+export class MailService {
   constructor(private readonly mailerService: MailerService) {}
 
   async sendRegisterConfirmationEmail() {
     await this.mailerService.sendMail({
-      to: 'peniwol334@cebaike.com', // list of receivers
+      to: 'hicaho9290@haboty.com', // list of receivers
       from: 'noreply@nestjs.com', // sender address
       subject: 'Testing Nest MailerModule ✔', // Subject line
       text: 'welcome', // plaintext body

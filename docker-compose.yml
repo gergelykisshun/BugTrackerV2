@@ -82,6 +82,12 @@ services:
     volumes:
       - ./mail-service:/data/mail-db
 
+  mailhog:
+    image: mailhog/mailhog
+    ports:
+      - "1025:1025"
+      - "8025:8025"
+
   rabbitmq:
     image: rabbitmq:3.9-management
     hostname: rabbitmq

@@ -2,20 +2,22 @@ import { MailerModule } from '@nestjs-modules/mailer';
 import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { MailModule } from './mail/mail.module';
 
 @Module({
   imports: [
-    MongooseModule.forRoot('mongodb://mail_db:27018', {
+    MongooseModule.forRoot('mongodb://mail_db:27017', {
       autoCreate: true,
       user: 'admin',
       pass: 'nimda',
-      dbName: 'project-service-db',
+      dbName: 'mail-service-db',
     }),
     MailerModule.forRoot({
       preview: true,
-      transport: 'smtps://user@domain.com:pass@smtp.domain.com',
+      transport: {
+        host: 'mailhog',
+        port: 1025,
+      },
       defaults: {
         from: '"No Reply" <noreply@example.com>',
       },
@@ -27,8 +29,9 @@ import { AppService } from './app.service';
         },
       },
     }),
+    MailModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [],
+  providers: [],
 })
 export class AppModule {}
