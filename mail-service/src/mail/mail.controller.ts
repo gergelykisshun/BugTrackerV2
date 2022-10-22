@@ -1,4 +1,5 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Controller, Get } from '@nestjs/common';
+import { EventPattern } from '@nestjs/microservices';
 import { sendEmailDto } from './dto/send-email.dto';
 import { MailService } from './mail.service';
 
@@ -6,8 +7,14 @@ import { MailService } from './mail.service';
 export class MailController {
   constructor(private mailService: MailService) {}
 
-  @Post('register')
-  async register(@Body() sendEmailDto: sendEmailDto) {
+  @Get('all')
+  async getAll() {
+    return 'all';
+  }
+
+  @EventPattern('register-confirmation')
+  async register(sendEmailDto: sendEmailDto) {
+    console.log('ENTERED THIS AND CAUGHT THE MSG');
     return this.mailService.sendRegisterConfirmationEmail(sendEmailDto);
   }
 }

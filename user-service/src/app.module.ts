@@ -6,6 +6,7 @@ import { ProjectController } from './project/project.controller';
 import { ProjectService } from './project/project.service';
 import { ProjectModule } from './project/project.module';
 import { HttpModule } from '@nestjs/axios';
+import { MailModule } from './mail/mail.module';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { HttpModule } from '@nestjs/axios';
     AuthModule,
     HttpModule,
     ProjectModule,
+    MailModule,
   ],
   controllers: [ProjectController],
   providers: [ProjectService],

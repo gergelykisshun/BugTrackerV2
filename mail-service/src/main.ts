@@ -1,16 +1,24 @@
 import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
-import helmet from 'helmet';
+import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
-  app.setGlobalPrefix('api/v1');
-  app.useGlobalPipes(new ValidationPipe());
-  app.use(helmet());
-  app.enableCors({
-    origin: ['http://localhost:3000', 'http://localhost:8000'],
-  });
-  await app.listen(8005);
+  const app = await NestFactory.createMicroservice<MicroserviceOptions>(
+    AppModule,
+    {
+      transport: Transport.RMQ,
+      options: {
+        urls: ['amqp://guest:guest@localhost:5672/'],
+        queue: 'mail_queue',
+        queueOptions: {
+          durable: false,
+        },
+      },
+    },
+  );
+  // app.useGlobalPipes(new ValidationPipe());
+
+  app.listen(;
 }
 bootstrap();
