@@ -12,7 +12,7 @@ import { MailModule } from './mail/mail.module';
   imports: [
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'user_service_db',
+      host: 'localhost',
       port: 5432,
       username: 'admin',
       password: 'nimda',

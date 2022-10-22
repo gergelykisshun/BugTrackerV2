@@ -1,4 +1,3 @@
-import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 import { AppModule } from './app.module';
@@ -19,6 +18,8 @@ async function bootstrap() {
   );
   // app.useGlobalPipes(new ValidationPipe());
 
-  app.listen(;
+  console.log('Firing up mail service!');
+  await app.listen();
+  console.log('Mail service is connected!');
 }
 bootstrap();

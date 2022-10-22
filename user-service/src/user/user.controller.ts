@@ -28,6 +28,8 @@ export class UserController {
 
   @Get()
   async allController() {
+    console.log('hey');
+    this.client.emit('emitId', 'Hello rbbitmq');
     return this.userService.getAll();
   }
 
