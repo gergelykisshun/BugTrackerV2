@@ -16,10 +16,10 @@ import { ExampleMiddleware } from './middlewares/example.middleware';
     TypeOrmModule.forFeature([User]),
     ClientsModule.register([
       {
-        name: 'PROJECT_SERVICE',
+        name: 'MAIL_SERVICE',
         transport: Transport.RMQ,
         options: {
-          urls: ['amqp://guest:guest@localhost:5672/'],
+          urls: ['amqp://guest:guest@rabbitmq:5672/'],
           queue: 'projects_queue',
           queueOptions: {
             durable: false,

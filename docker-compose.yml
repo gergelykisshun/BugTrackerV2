@@ -1,6 +1,24 @@
 version: "3.8"
 
 services:
+  rabbitmq:
+    image: rabbitmq:3.9-management
+    container_name: rabbitmq
+    hostname: rabbitmq
+    ports:
+      - 5672:5672
+      - 15672:15672
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq/
+      - rabbitmq_log:/var/log/rabbitmq/
+    networks:
+      - rabbitmq_net
+    healthcheck:
+      test: ["CMD", "nc", "-z", "localhost", "5672"]
+      interval: 10s
+      timeout: 10s
+      retries: 5
+
   frontend:
     image: node:16.12.0
     working_dir: /app
@@ -58,7 +76,7 @@ services:
       POSTGRES_PASSWORD: nimda
       POSTGRES_DB: bug-tracker-user
     volumes:
-      - ./user-service:/data/user-service-db
+      - user-service:/data/user-service-db
 
   project-service-db:
     image: mongo:5.0.3
@@ -69,7 +87,7 @@ services:
       MONGO_INITDB_ROOT_USERNAME: admin
       MONGO_INITDB_ROOT_PASSWORD: nimda
     volumes:
-      - ./project-service:/data/project-service-db
+      - project-service:/data/project-service-db
 
   # mail-db:
   #   image: mongo:5.0.3
@@ -88,19 +106,9 @@ services:
       - "1025:1025"
       - "8025:8025"
 
-  rabbitmq:
-    image: rabbitmq:3.9-management
-    hostname: rabbitmq
-    ports:
-      - 5672:5672
-      - 15672:15672
-    volumes:
-      - rabbitmq_data:/var/lib/rabbitmq/
-      - rabbitmq_log:/var/log/rabbitmq/
-    networks:
-      - rabbitmq_net
-
 volumes:
+  user-service:
+  project-service:
   rabbitmq_data:
   rabbitmq_log:
 

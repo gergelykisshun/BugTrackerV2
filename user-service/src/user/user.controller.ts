@@ -23,7 +23,7 @@ import { hashPass } from './utilities/hash';
 export class UserController {
   constructor(
     private userService: UserService,
-    @Inject('PROJECT_SERVICE') private readonly client: ClientProxy,
+    @Inject('MAIL_SERVICE') private readonly client: ClientProxy,
   ) {}
 
   @Get()

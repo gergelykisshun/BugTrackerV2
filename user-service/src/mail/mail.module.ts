@@ -10,10 +10,10 @@ import { MailService } from './mail.service';
         name: 'MAIL_SERVICE',
         transport: Transport.RMQ,
         options: {
-          urls: ['amqp://guest:guest@localhost:5672/'],
+          urls: ['amqp://guest:guest@rabbitmq:5672/'],
           queue: 'mail_queue',
           queueOptions: {
-            durable: false,
+            durable: true,
           },
         },
       },
