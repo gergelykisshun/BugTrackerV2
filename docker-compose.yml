@@ -73,7 +73,7 @@ services:
       POSTGRES_PASSWORD: nimda
       POSTGRES_DB: bug-tracker-user
     volumes:
-      - user-service:/data/user-service-db
+      - user-service-data:/data/postgres
 
   project-service-db:
     image: mongo:5.0.3
@@ -84,7 +84,7 @@ services:
       MONGO_INITDB_ROOT_USERNAME: admin
       MONGO_INITDB_ROOT_PASSWORD: nimda
     volumes:
-      - project-service:/data/project-service-db
+      - project-service-data:/data/db
 
   # mail-db:
   #   image: mongo:5.0.3
@@ -104,11 +104,10 @@ services:
       - "8025:8025"
 
 volumes:
-  user-service:
-  project-service:
+  user-service-data: {}
+  project-service-data: {}
   rabbitmq_data:
   rabbitmq_log:
-
-networks:
-  rabbitmq_net:
-    driver: bridge
+# networks:
+#   rabbitmq_net:
+#     driver: bridge
