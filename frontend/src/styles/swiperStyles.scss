@@ -1,0 +1,17 @@
+@import 'swiper/swiper-bundle.min.css';
+@import 'swiper/swiper.min.css';
+
+.swiper-slide {
+  display: flex;
+  justify-content: center;
+}
+
+.swiper-pagination-bullet-active {
+  background-color: white !important;
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+  color: white !important;
+  bottom: 0;
+}

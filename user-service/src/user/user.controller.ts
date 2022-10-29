@@ -31,7 +31,6 @@ export class UserController {
   @Get()
   async allController() {
     console.log('hey');
-    this.client.emit('emitId', 'Hello rbbitmq');
     return this.userService.getAll();
   }
 
@@ -91,7 +90,7 @@ export class UserController {
   }
 
   @Patch('activate-account')
-  async activateAccount (@Body() data: activateAccounDto){
+  async activateAccount(@Body() data: activateAccounDto) {
     return this.userService.activateAccount(data.registerToken);
   }
 }

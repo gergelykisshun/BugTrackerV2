@@ -1,5 +1,6 @@
 @import "./variables.scss";
 @import "./overrideBootstrap.scss";
+@import "./styles/swiperStyles.scss";
 
 * {
   margin: 0;
@@ -100,4 +101,13 @@ p {
 .loading-spinner {
   width: 10px;
   height: 10px;
+}
+
+p.bubble-text {
+  width: fit-content;
+  padding: 2px 10px;
+  font-size: 10px;
+  text-transform: uppercase;
+  border: 1px solid white;
+  border-radius: 10px;
 }
