@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller } from '@nestjs/common';
 import { EventPattern } from '@nestjs/microservices';
 import { sendEmailDto } from './dto/send-email.dto';
 import { MailService } from './mail.service';
@@ -9,7 +9,7 @@ export class MailController {
 
   @EventPattern('register-confirmation')
   async register(sendEmailDto: sendEmailDto) {
-    console.log('ENTERED THIS AND CAUGHT THE MSG');
+    console.log('CAUGHT REGISTER CONFIRMATION MSG FROM RMQ');
     return this.mailService.sendRegisterConfirmationEmail(sendEmailDto);
   }
 }

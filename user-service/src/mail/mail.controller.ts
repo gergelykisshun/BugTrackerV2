@@ -15,7 +15,6 @@ export class MailController {
       this.client.emit('register-confirmation', registerConfirmationDto);
       return { err: null, msg: 'Register confirmation email sent!' };
     } catch (e) {
-      console.log(e);
       return {
         err: 'Emit failed!',
         msg: 'Register confirmation email failed to send!',

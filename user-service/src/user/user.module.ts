@@ -20,7 +20,7 @@ import { ExampleMiddleware } from './middlewares/example.middleware';
         transport: Transport.RMQ,
         options: {
           urls: ['amqp://guest:guest@rabbitmq:5672/'],
-          queue: 'projects_queue',
+          queue: 'mail_queue',
           queueOptions: {
             durable: false,
           },
