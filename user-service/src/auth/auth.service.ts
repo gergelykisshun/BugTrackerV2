@@ -23,6 +23,9 @@ export class AuthService {
     const passwordChecked = await comparePass(loginDto.password, user.password);
     if (!passwordChecked) throw new ForbiddenException('Incorrect password!');
 
+    if (!user.isActive)
+      throw new HttpException('Account is not active!', HttpStatus.FORBIDDEN);
+
     delete user.password;
 
     return user;
