@@ -34,7 +34,11 @@ const MyProjects: FC<Props> = () => {
     content = (
       <div className="row" style={{ gap: 10 }}>
         {projects.map((project) => (
-          <ProjectCard key={project._id} project={project} />
+          <ProjectCard
+            key={project._id}
+            project={project}
+            utilityClasses="col-md-5"
+          />
         ))}
       </div>
     );

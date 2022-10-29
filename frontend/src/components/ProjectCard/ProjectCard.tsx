@@ -5,11 +5,12 @@ import "./style.scss";
 
 type Props = {
   project: IProject;
+  utilityClasses?: string;
 };
 
-const ProjectCard: FC<Props> = ({ project }) => {
+const ProjectCard: FC<Props> = ({ project, utilityClasses }) => {
   return (
-    <div className="col-md-5 project-card-container">
+    <div className={`${utilityClasses} project-card-container`}>
       <div className="row">
         <h4>{project.title}</h4>
         <h5>

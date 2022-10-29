@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Navigation } from "swiper";
 import { IProject, IUser } from "../../types/types";
@@ -12,7 +12,7 @@ import "./style.scss";
 
 type Props = {};
 
-const OverviewPage = (props: Props) => {
+const OverviewPage: FC<Props> = () => {
   const [users, setUsers] = useState<IUser[]>([]);
   const [loadingUsers, setLoadingUsers] = useState<boolean>(true);
 
@@ -70,7 +70,7 @@ const OverviewPage = (props: Props) => {
             {users &&
               users.map((user) => (
                 <SwiperSlide>
-                  <UserCard user={user} />
+                  <UserCard key={user.id} user={user} />
                 </SwiperSlide>
               ))}
           </Swiper>
@@ -83,7 +83,7 @@ const OverviewPage = (props: Props) => {
           <CircularProgress />
         ) : (
           <Swiper
-            slidesPerView={3}
+            slidesPerView={1}
             spaceBetween={30}
             loop
             pagination={{
@@ -91,12 +91,17 @@ const OverviewPage = (props: Props) => {
             }}
             navigation
             modules={[Pagination, Navigation]}
+            breakpoints={{
+              1024: {
+                slidesPerView: 3,
+              },
+            }}
             className="esport-swiper"
           >
             {projects &&
               projects.map((project) => (
                 <SwiperSlide>
-                  <ProjectCard project={project} />
+                  <ProjectCard key={project._id} project={project} />
                 </SwiperSlide>
               ))}
           </Swiper>
