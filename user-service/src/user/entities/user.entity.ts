@@ -19,4 +19,7 @@ export class User {
 
   @Column()
   isActive: boolean;
+
+  @Column()
+  registerToken: string;
 }

@@ -20,3 +20,10 @@ export const registerUser = async (
   const response = await api.post(`${userBaseUrl}`, registerUserDto);
   return response.data;
 };
+
+export const activateUser = async (registerToken: string) => {
+  const response = await api.patch(`${userBaseUrl}/activate-account`, {
+    registerToken,
+  });
+  return response.data;
+};

@@ -1,21 +1,49 @@
-import { FC } from "react";
+import { CircularProgress, dialogClasses } from "@mui/material";
+import { FC, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { activateUser } from "../../api/user";
+import useQuery from "../../hooks/useQuery";
 
 type Props = {};
 
 const ActivateAccountPage: FC<Props> = () => {
-  return (
+  const query = useQuery();
+  const token = query.get("token");
+  const navigate = useNavigate();
+  const [isFailed, setIsFailed] = useState<boolean>(false);
+
+  const activateUserByToken = async () => {
+    if (token) {
+      try {
+        await activateUser(token);
+        navigate("/login");
+        toast.success("Registration activation succesful!");
+      } catch (e) {
+        setIsFailed(true);
+      }
+    }
+  };
+
+  useEffect(() => {
+    if (isFailed) {
+      setTimeout(() => {
+        navigate("/");
+      }, 2000);
+    }
+
+    if (token && !isFailed) {
+      activateUserByToken();
+    }
+  }, [isFailed]);
+
+  return !isFailed ? (
     <div className="row">
-      <h1>Welcome to Bug-Tracker</h1>
-      <p>Would you like to activate your account?</p>
-      <div className="col-sm-7 d-flex gap-3">
-        <div className="col-3">
-          <button className="primary-btn">Yes</button>
-        </div>
-        <div className="col-3">
-          <button className="primary-btn">No</button>
-        </div>
-      </div>
+      <CircularProgress />
+      Activating account! Please wait...
     </div>
+  ) : (
+    <div className="row">Sorry! Your activation failed!</div>
   );
 };
 

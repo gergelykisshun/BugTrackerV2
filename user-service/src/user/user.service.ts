@@ -2,6 +2,7 @@ import {
   Inject,
   Injectable,
   InternalServerErrorException,
+  NotFoundException,
 } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -10,6 +11,7 @@ import { createUserDto } from './dto/createUser.dto';
 
 import { User } from './entities/user.entity';
 import { IRegisterConfirmationEmail } from './interfaces/email-template';
+import { v4 as uuidv4 } from 'uuid';
 
 @Injectable()
 export class UserService {
@@ -33,16 +35,19 @@ export class UserService {
       );
     }
 
+    const registerToken = uuidv4();
+
     const userCreated = await this.userRepository.save({
       ...user,
       isActive: false,
+      registerToken,
     });
     delete userCreated.password;
 
     this.client.emit('register-confirmation', {
       username: user.username,
       email: user.email,
-      redirectUrl: 'http://localhost:3000/activate-account',
+      redirectUrl: `http://localhost:3000/activate-account?token=${registerToken}`,
     } as IRegisterConfirmationEmail);
 
     return userCreated;
@@ -63,5 +68,19 @@ export class UserService {
   }
   async delete(id: number) {
     return this.userRepository.delete(id);
+  }
+  async activateAccount(token: string) {
+    const user = await this.userRepository.findOneBy({ registerToken: token });
+    if (!user)
+      throw new NotFoundException(`User not found by token: ${token}!`);
+
+    console.log('user before', user);
+
+    user.registerToken = '';
+    user.isActive = true;
+
+    console.log('user after', user);
+
+    return this.userRepository.save(user);
   }
 }

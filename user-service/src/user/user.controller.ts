@@ -7,6 +7,7 @@ import {
   Inject,
   NotFoundException,
   Param,
+  Patch,
   Post,
   Put,
   Req,
@@ -15,6 +16,7 @@ import {
 import { ClientProxy } from '@nestjs/microservices';
 import { Request } from 'express';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
+import { activateAccounDto } from './dto/activate-account.dto';
 import { createUserDto } from './dto/createUser.dto';
 import { UserService } from './user.service';
 import { hashPass } from './utilities/hash';
@@ -86,5 +88,10 @@ export class UserController {
   ) {
     const user = await this.getController(userId);
     if (!user) throw new NotFoundException('User not found!');
+  }
+
+  @Patch('activate-account')
+  async activateAccount (@Body() data: activateAccounDto){
+    return this.userService.activateAccount(data.registerToken);
   }
 }
