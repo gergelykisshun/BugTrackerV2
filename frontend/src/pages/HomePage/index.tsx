@@ -1,11 +1,22 @@
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import AdbIcon from "@mui/icons-material/Adb";
 import "./style.scss";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { userSelector } from "../../store/reducers/user/userSelectors";
 
 type Props = {};
 
 const HomePage: FC<Props> = () => {
+  const user = useSelector(userSelector);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (user) {
+      navigate("overview");
+    }
+  }, []);
+
   return (
     <section className="welcome-section">
       <div className="row welcome-wrapper">

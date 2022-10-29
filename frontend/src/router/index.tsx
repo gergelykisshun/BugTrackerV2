@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Layout from "../components/Layout/Layout";
 import ActivateAccountPage from "../pages/ActivateAccountPage";
+import ErrorPage from "../pages/ErrorPage/ErrorPage";
 import HomePage from "../pages/HomePage";
 import LoginPage from "../pages/LoginPage";
 import MyAccountPage from "../pages/MyAccountPage";
@@ -38,6 +39,7 @@ const Routing: FC<Props> = () => {
             />
             <Route path="/projects/:projectId" element={<ProjectPage />} />
           </Route>
+          <Route path="*" element={<ErrorPage />} />
         </Routes>
       </Layout>
     </BrowserRouter>
